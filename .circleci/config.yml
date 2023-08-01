@@ -23,7 +23,7 @@ jobs:
             cd adaptix
             sudo MIRROR=https://geo.mirror.pkgbuild.com PROFILE=.. ./build.sh
       - store_artifacts:
-          path: adaptix/work/out
+          path: adaptix/work/root.x86_64/archlive/out
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
