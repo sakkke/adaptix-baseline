@@ -15,11 +15,15 @@ jobs:
     steps:
       - checkout
       - run:
+          name: "Clone adaptix"
+          command: "git clone https://github.com/sakkke/adaptix.git"
+      - run:
           name: "Build project"
           command: |
-            git clone https://github.com/sakkke/adaptix.git
             cd adaptix
             sudo MIRROR=https://geo.mirror.pkgbuild.com PROFILE=.. ./build.sh
+      - store_artifacts:
+          path: adaptix/work/out
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
