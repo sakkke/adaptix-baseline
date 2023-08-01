@@ -21,7 +21,7 @@ jobs:
           name: "Build project"
           command: |
             cd adaptix
-            MIRROR=https://geo.mirror.pkgbuild.com PROFILE=adaptix ./build.sh
+            sudo MIRROR=https://geo.mirror.pkgbuild.com PROFILE=adaptix ./build.sh
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
