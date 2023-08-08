@@ -37,7 +37,7 @@ jobs:
             sudo MIRROR=https://geo.mirror.pkgbuild.com PROFILE=.. ./build.sh
       - run:
           name: "Upload artifacts"
-          command: "s3cmd cp adaptix/work/root.x86_64/archlive/out \"$S3_DEST$CIRCLE_SHA1/\" --recursive"
+          command: "s3cmd sync adaptix/work/root.x86_64/archlive/out/ \"$S3_DEST$CIRCLE_SHA1/\""
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
