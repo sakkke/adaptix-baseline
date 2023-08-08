@@ -15,6 +15,19 @@ jobs:
     steps:
       - checkout
       - run:
+          name: "Install s3cmd"
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y s3cmd
+      - run:
+          name: "Configure s3cmd for DigitalOcean Spaces"
+          command: |
+            echo "[default]" > ~/.s3cfg
+            echo "access_key = $DO_SPACES_ACCESS_KEY" >> ~/.s3cfg
+            echo "secret_key = $DO_SPACES_SECRET_KEY" >> ~/.s3cfg
+            echo "host_base = $DO_SPACES_ENDPOINT" >> ~/.s3cfg
+            echo "host_bucket = %(bucket)s.$DO_SPACES_ENDPOINT" >> ~/.s3cfg
+      - run:
           name: "Clone adaptix"
           command: "git clone https://github.com/sakkke/adaptix.git"
       - run:
@@ -24,7 +37,7 @@ jobs:
             sudo MIRROR=https://geo.mirror.pkgbuild.com PROFILE=.. ./build.sh
       - run:
           name: "Upload artifacts"
-          command: "aws s3 cp adaptix/work/root.x86_64/archlive/out \"$S3_DEST$CIRCLE_SHA1/\" --recursive"
+          command: "s3cmd cp adaptix/work/root.x86_64/archlive/out \"$S3_DEST$CIRCLE_SHA1/\" --recursive"
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
